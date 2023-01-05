@@ -39,7 +39,7 @@ func main() {
 }
 
 func DropTableIfExists(db *sql.DB) error {
-	bytes, err := os.ReadFile("t1_drop.sql")
+	bytes, err := os.ReadFile("sql/t1_drop.sql")
 	if err != nil {
 		return err
 	}
@@ -48,7 +48,7 @@ func DropTableIfExists(db *sql.DB) error {
 }
 
 func CreateTable(db *sql.DB) error {
-	bytes, err := os.ReadFile("t1.sql")
+	bytes, err := os.ReadFile("sql/t1.sql")
 	if err != nil {
 		return err
 	}
@@ -57,7 +57,7 @@ func CreateTable(db *sql.DB) error {
 }
 
 func InsertSeed(db *sql.DB) error {
-	bytes, err := os.ReadFile("seed.sql")
+	bytes, err := os.ReadFile("sql/seed.sql")
 	if err != nil {
 		return err
 	}
