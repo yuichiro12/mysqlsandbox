@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS t1 (
+CREATE TABLE t1 (
   id bigint,
   name varchar(32)
-)
+);

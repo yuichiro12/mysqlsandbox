@@ -16,6 +16,9 @@ func main() {
 	}
 	defer db.Close()
 
+	if err = DropTableIfExists(db); err != nil {
+		log.Fatal(err)
+	}
 	if err = CreateTable(db); err != nil {
 		log.Fatal(err)
 	}
@@ -33,6 +36,15 @@ func main() {
 	for rows.Next() {
 		fmt.Println(rows)
 	}
+}
+
+func DropTableIfExists(db *sql.DB) error {
+	bytes, err := os.ReadFile("t1_drop.sql")
+	if err != nil {
+		return err
+	}
+	_, err = db.Exec(string(bytes))
+	return err
 }
 
 func CreateTable(db *sql.DB) error {
