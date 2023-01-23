@@ -19,13 +19,12 @@ Error 1213 (40001): Deadlock found when trying to get lock; try restarting trans
 
 ### observe deadlock
 ```
-## connect to mysql docker
 $ make c
 
 mysql> show engine innodb status\G
 ```
 
-Check out `LATEST DETECTED DEADLOCK` section and you can see deadlock occurs with PRIMARY key.
+Check out the `LATEST DETECTED DEADLOCK` section and you can see deadlock occurs with PRIMARY key.
 
 ```
 ------------------------
