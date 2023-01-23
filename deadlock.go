@@ -7,6 +7,8 @@ import (
 	"log"
 	"math/rand"
 	"os"
+	"sort"
+	"strings"
 	"sync"
 	"time"
 
@@ -53,16 +55,14 @@ func main() {
 func BatchInsert(wg *sync.WaitGroup) {
 	defer wg.Done()
 
-	s := ""
+	s := []string{}
 	for i := 0; i < 1000; i++ {
 		rand.Seed(time.Now().UnixNano())
 		hex := md5.Sum([]byte(fmt.Sprintf("%d", rand.Intn(1000))))
-		s += fmt.Sprintf("('%s')", fmt.Sprintf("%x", hex))
-		if i != 999 {
-			s += ","
-		}
+		s = append(s, fmt.Sprintf("('%s')", fmt.Sprintf("%x", hex)))
 	}
-	q := "INSERT IGNORE INTO t1 (name) VALUES " + s
+	sort.Strings(s)
+	q := "INSERT IGNORE INTO t1 (name) VALUES " + strings.Join(s, ",")
 	if _, err := db.Exec(q); err != nil {
 		log.Fatal(err)
 	}
