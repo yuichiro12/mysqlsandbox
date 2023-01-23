@@ -32,17 +32,6 @@ func main() {
 		log.Fatal(err)
 	}
 
-	rows, err := db.Query("SELECT * FROM t1")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer rows.Close()
-
-	// SQLの実行
-	for rows.Next() {
-		fmt.Println(rows)
-	}
-
 	wg := &sync.WaitGroup{}
 	for i := 0; i < 100; i++ {
 		wg.Add(1)
@@ -79,15 +68,6 @@ func DropTableIfExists() error {
 
 func CreateTable() error {
 	bytes, err := os.ReadFile("sql/t1.sql")
-	if err != nil {
-		return err
-	}
-	_, err = db.Exec(string(bytes))
-	return err
-}
-
-func InsertSeed() error {
-	bytes, err := os.ReadFile("sql/seed.sql")
 	if err != nil {
 		return err
 	}
